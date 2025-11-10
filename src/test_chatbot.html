@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Tutankhamun API</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .chat-container { border: 1px solid #ccc; padding: 20px; border-radius: 10px; }
+        .user { background: #e3f2fd; padding: 10px; margin: 5px; border-radius: 5px; }
+        .bot { background: #fff3e0; padding: 10px; margin: 5px; border-radius: 5px; }
+        input { width: 70%; padding: 10px; margin-right: 10px; }
+        button { padding: 10px 20px; background: #d4af37; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🏺 Test Tutankhamun API</h1>
+    <div class="chat-container" id="chat">
+        <div class="bot">API Test Interface - Start chatting with Tutankhamun!</div>
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <input type="text" id="message" placeholder="Ask Tutankhamun a question...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById('message').value;
+            if (!message) return;
+            
+            const chat = document.getElementById('chat');
+            
+            // Add user message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'user';
+            userDiv.innerHTML = `<strong>You:</strong> ${message}`;
+            chat.appendChild(userDiv);
+            
+            // Clear input
+            document.getElementById('message').value = '';
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/v1/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({message: message})
+                });
+                
+                const data = await response.json();
+                
+                // Add bot response
+                const botDiv = document.createElement('div');
+                botDiv.className = 'bot';
+                botDiv.innerHTML = `<strong>🏺 Tutankhamun:</strong> ${data.response}`;
+                chat.appendChild(botDiv);
+                
+            } catch (error) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'bot';
+                errorDiv.innerHTML = `<strong> Error:</strong> ${error}`;
+                chat.appendChild(errorDiv);
+            }
+            
+            // Scroll to bottom
+            chat.scrollTop = chat.scrollHeight;
+        }
+        
+        // Allow pressing Enter to send
+        document.getElementById('message').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
