@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from routes.chat_routes import router as chat_router
 from utils.config import Config
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Tutankhamun Chatbot",
@@ -9,6 +10,16 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
 )
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+
 
 # Include routes
 app.include_router(chat_router, prefix="/api/v1")
