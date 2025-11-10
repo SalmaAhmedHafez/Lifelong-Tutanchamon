@@ -41,7 +41,7 @@ I created this project after being inspired by the opening of the Grand Egyptian
 - **LangChain** for AI conversation management
 - **Google Gemini AI** for natural language processing
 - **Modular code structure** for easy maintenance
-- ** Streamlit for web interface
+
 
 
 
