@@ -40,7 +40,7 @@ This is an AI chatbot that lets you talk with Pharaoh Tutankhamun. It answers qu
 - **LangChain** for AI conversation management
 - **Google Gemini AI** for natural language processing
 - **Modular code structure** for easy maintenance
-- **Finally build a simple HTML page for testing.
+- **Finally build a simple HTML page** for testing.
 
 
 
